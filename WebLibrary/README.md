@@ -1,427 +1,196 @@
-# WebLibrary
+# WebLibrary - .NET 9 Web Development Library
 
-.NET 9.0 ile geliştirilmiş, generic method ve utility işlemleri içeren modern web kütüphanesi.
+A comprehensive .NET 9 Class Library that provides generic methods, utilities, and operations for web development.
 
-## 🚀 Özellikler
+## Features
 
-- **Generic ServiceResult**: Başarı ve hata durumlarını yöneten generic sınıf
-- **HTTP Client Helper**: Generic HTTP istekleri için yardımcı sınıf
-- **Validation Helper**: Veri doğrulama işlemleri için yardımcı metodlar
-- **Generic Extensions**: Koleksiyonlar için extension metodları
-- **Generic Utilities**: Nesne işlemleri için utility metodları
-- **Generic Service Base**: CRUD işlemleri için temel servis sınıfı
-- **Global Configuration**: Merkezi yapılandırma yönetimi
-- **🔐 Security & Authentication**:
-  - **JWT Token Helper**: JWT token oluşturma, doğrulama ve yönetim
-  - **Password Helper**: BCrypt ile şifre hashleme, doğrulama ve güvenlik kontrolü
-  - **Encryption Helper**: AES şifreleme, hash işlemleri ve güvenli rastgele değer üretimi
-- **📊 Data Processing**:
-  - **CSV Data Helper**: CSV import/export işlemleri
-  - **Excel Data Helper**: Excel import/export işlemleri
-  - **Data Transformation Helper**: Veri dönüştürme işlemleri
-  - **Bulk Operations Helper**: Toplu işlemler
-- **🗄️ Database Operations**:
-  - **Generic Repository Pattern**: Dapper ile generic repository
-  - **Query Builder**: SQL sorgularını dinamik olarak oluşturma
-  - **Connection Management**: Veritabanı bağlantı yönetimi
-  - **Unit of Work**: Transaction yönetimi
+### 🔧 Core Components
+- **Global Configuration**: Centralized configuration management
+- **ServiceResult Model**: Generic result wrapper for service operations
+- **HTTP Client Helper**: Generic HTTP client operations
+- **Validation Helper**: Data validation utilities
+- **Generic Extensions**: Extension methods for common operations
+- **Generic Utilities**: General-purpose utility methods
+- **Generic Service Base**: Abstract base class for CRUD operations
 
-## 📦 Kurulum
+### 🔐 Security & Authentication
+- **JWT Token Management**: Token generation, validation, and claim extraction
+- **Password Security**: BCrypt hashing, verification, and strength checking
+- **Encryption Utilities**: AES encryption, SHA hashing, HMAC, and secure random generation
 
+### 📊 Data Processing
+- **CSV Operations**: Import/export with CsvHelper
+- **Excel Operations**: Read/write Excel files with EPPlus
+- **Data Transformation**: JSON/Dictionary conversion, object copying, and comparison
+- **Bulk Operations**: Batch processing with parallel support
+
+### 🗄️ Database Operations
+- **Generic Repository Pattern**: CRUD operations with Dapper
+- **Query Builder**: Dynamic SQL query construction
+- **Connection Management**: Database connection factory pattern
+- **Unit of Work Pattern**: Transaction management
+- **Database Helper**: Utility operations for database management
+
+## Project Structure
+
+```
+WebLibrary/
+├── Global.cs                           # Global constants and configuration
+├── Models/
+│   └── ServiceResult.cs                # Generic result wrapper
+├── Helpers/
+│   ├── HttpClientHelper.cs             # HTTP client operations
+│   └── ValidationHelper.cs             # Data validation
+├── Extensions/
+│   └── GenericExtensions.cs            # Extension methods
+├── Utilities/
+│   └── GenericUtilities.cs             # Utility methods
+├── Services/
+│   └── GenericServiceBase.cs           # Base service class
+├── Security/
+│   ├── JwtTokenHelper.cs               # JWT operations
+│   ├── PasswordHelper.cs               # Password security
+│   └── EncryptionHelper.cs             # Encryption utilities
+├── DataProcessing/
+│   ├── CsvDataHelper.cs                # CSV operations
+│   ├── ExcelHelper.cs                  # Excel operations
+│   ├── DataTransformationHelper.cs     # Data transformation
+│   └── BulkOperationsHelper.cs         # Bulk operations
+└── Database/
+    ├── IDbConnectionFactory.cs         # Connection factory interface
+    ├── SqlServerConnectionFactory.cs   # SQL Server connection factory
+    ├── QueryBuilder.cs                 # SQL query builder
+    ├── IGenericRepository.cs           # Repository interface
+    ├── DapperGenericRepository.cs      # Dapper repository implementation
+    ├── IUnitOfWork.cs                  # Unit of work interface
+    ├── UnitOfWork.cs                   # Unit of work implementation
+    └── DatabaseHelper.cs               # Database utilities
+
+WebLibraryTest/                         # Test console application
+└── Program.cs                          # Test implementation
+```
+
+## Installation
+
+### NuGet Package
 ```bash
 dotnet add package WebLibrary
 ```
 
-## 🏗️ Proje Yapısı
+### Manual Installation
+1. Clone this repository
+2. Build the solution
+3. Reference the WebLibrary.dll in your project
 
-```
-WebLibrary/
-├── Global.cs                 # Global yapılandırma
-├── Models/
-│   └── ServiceResult.cs     # Generic servis sonuç sınıfı
-├── Helpers/
-│   ├── HttpClientHelper.cs  # HTTP client yardımcısı
-│   └── ValidationHelper.cs  # Veri doğrulama yardımcısı
-├── Extensions/
-│   └── GenericExtensions.cs # Generic extension metodları
-├── Utilities/
-│   └── GenericUtilities.cs  # Generic utility metodları
-├── Services/
-│   └── GenericServiceBase.cs # Generic servis base sınıfı
-├── Security/                 # 🔐 Güvenlik ve kimlik doğrulama
-│   ├── JwtTokenHelper.cs    # JWT token işlemleri
-│   ├── PasswordHelper.cs    # Şifre işlemleri
-│   └── EncryptionHelper.cs  # Şifreleme işlemleri
-├── DataProcessing/           # 📊 Veri işleme
-│   ├── CsvDataHelper.cs     # CSV import/export işlemleri
-│   ├── ExcelDataHelper.cs   # Excel import/export işlemleri
-│   ├── DataTransformationHelper.cs # Veri dönüştürme işlemleri
-│   └── BulkOperationsHelper.cs # Toplu işlemler
-└── Database/                 # 🗄️ Veritabanı işlemleri
-    ├── IDbConnectionFactory.cs       # Veritabanı bağlantı fabrikası interface'i
-    ├── SqlServerConnectionFactory.cs # SQL Server bağlantı fabrikası
-    ├── QueryBuilder.cs               # SQL sorgu oluşturucu
-    ├── IGenericRepository.cs         # Generic repository interface'i
-    ├── DapperGenericRepository.cs    # Dapper ile generic repository base class'ı
-    ├── IUnitOfWork.cs                # Unit of Work interface'i
-    ├── UnitOfWork.cs                 # Unit of Work base class'ı
-    └── DatabaseHelper.cs             # Veritabanı yardımcı metodları
-```
+## Quick Start
 
-## 🔧 Kullanım Örnekleri
-
-### Global Ayarlar
-
-```csharp
-using WebLibrary;
-
-// Global ayarları kullan
-Global.BaseApiUrl = "https://api.example.com";
-Global.ApiTimeoutSeconds = 30;
-Global.MaxRetryCount = 3;
-```
-
-### ServiceResult
-
+### Basic Usage
 ```csharp
 using WebLibrary.Models;
-
-// Başarılı sonuç
-var successResult = ServiceResult<string>.Success("Veri başarıyla alındı");
-
-// Hata sonucu
-var errorResult = ServiceResult<string>.Error("Bir hata oluştu");
-
-// Sonucu kontrol et
-if (successResult.IsSuccess)
-{
-    var data = successResult.Data;
-}
-else
-{
-    var errors = successResult.ErrorMessages;
-}
-```
-
-### HTTP Client Helper
-
-```csharp
 using WebLibrary.Helpers;
 
-// GET isteği
-var result = await HttpClientHelper.GetAsync<User>("https://api.example.com/users/1");
+// Use ServiceResult for operation results
+var result = ServiceResult<string>.Success("Operation completed");
 
-// POST isteği
-var newUser = new User { Name = "John", Email = "john@example.com" };
-var postResult = await HttpClientHelper.PostAsync<User>("https://api.example.com/users", newUser);
+// HTTP operations
+var httpResult = await HttpClientHelper.GetAsync<MyModel>("https://api.example.com/data");
 
-// PUT isteği
-var updateResult = await HttpClientHelper.PutAsync<User>("https://api.example.com/users/1", updatedUser);
-
-// DELETE isteği
-var deleteResult = await HttpClientHelper.DeleteAsync("https://api.example.com/users/1");
-```
-
-### Validation Helper
-
-```csharp
-using WebLibrary.Helpers;
-
-// Email doğrulama
+// Validation
 bool isValidEmail = ValidationHelper.IsValidEmail("test@example.com");
-
-// TC Kimlik doğrulama
-bool isValidTc = ValidationHelper.IsValidTcKimlik("12345678901");
-
-// Telefon doğrulama
-bool isValidPhone = ValidationHelper.IsValidPhone("05551234567");
-
-// Şifre güvenliği
-bool isStrongPassword = ValidationHelper.IsStrongPassword("Test123!@#");
-
-// Model doğrulama
-var validationResult = ValidationHelper.ValidateModel(userModel);
 ```
 
-### Security & Authentication
-
+### Security Features
 ```csharp
 using WebLibrary.Security;
 
-// JWT Token işlemleri
-var secretKey = "your-secret-key";
-var claims = new List<Claim>
-{
-    new Claim("UserId", "123"),
-    new Claim("Username", "john"),
-    new Claim("Role", "Admin")
-};
+// JWT Token operations
+var token = JwtTokenHelper.GenerateToken(claims, secretKey);
+var isValid = JwtTokenHelper.ValidateToken(token, secretKey);
 
-// Token oluştur
-var tokenResult = JwtTokenHelper.GenerateToken(claims, secretKey);
-if (tokenResult.IsSuccess)
-{
-    var token = tokenResult.Data;
-    
-    // Token doğrula
-    var isValid = JwtTokenHelper.ValidateToken(token, secretKey);
-    
-    // Claim'leri çıkar
-    var extractedClaims = JwtTokenHelper.ExtractClaims(token, secretKey);
-    var userId = JwtTokenHelper.ExtractUserId(token, secretKey);
-}
+// Password hashing
+var hashedPassword = PasswordHelper.HashPassword("mypassword");
+var isValidPassword = PasswordHelper.VerifyPassword("mypassword", hashedPassword);
 
-// Şifre işlemleri
-var password = "MySecurePassword123!";
-
-// Şifre hashle
-var hashedPassword = PasswordHelper.HashPassword(password);
-
-// Şifre doğrula
-var isValidPassword = PasswordHelper.VerifyPassword(password, hashedPassword);
-
-// Şifre güvenliği kontrol et
-var strengthResult = PasswordHelper.CheckPasswordStrength(password);
-Console.WriteLine($"Güvenlik skoru: {strengthResult.Data?.Score}/7");
-
-// Güçlü şifre oluştur
-var strongPassword = PasswordHelper.GenerateStrongPassword(16, true);
-
-// Şifreleme işlemleri
-var plainText = "Gizli veri";
-
-// AES anahtar çifti oluştur
-var keyPair = EncryptionHelper.GenerateStringKeyPair();
-
-// Veri şifrele
-var encrypted = EncryptionHelper.EncryptAesString(plainText, keyPair.Data.Key, keyPair.Data.IV);
-
-// Veri çöz
-var decrypted = EncryptionHelper.DecryptAesString(encrypted.Data, keyPair.Data.Key, keyPair.Data.IV);
-
-// Hash işlemleri
-var sha256Hash = EncryptionHelper.GenerateSha256Hash(plainText);
-var sha512Hash = EncryptionHelper.GenerateSha512Hash(plainText);
-
-// Güvenli rastgele değerler
-var randomNumber = EncryptionHelper.GenerateSecureRandomNumber(1, 100);
-var randomString = EncryptionHelper.GenerateSecureRandomString(20, true);
-
-// HMAC oluştur ve doğrula
-var hmac = EncryptionHelper.GenerateHmac(plainText, "secret-key");
-var isValidHmac = EncryptionHelper.VerifyHmac(plainText, "secret-key", hmac.Data);
+// Encryption
+var encrypted = EncryptionHelper.AesEncrypt("sensitive data", key, iv);
+var decrypted = EncryptionHelper.AesDecrypt(encrypted, key, iv);
 ```
 
-### Generic Extensions
-
+### Data Processing
 ```csharp
-using WebLibrary.Extensions;
+using WebLibrary.DataProcessing;
 
-var users = new List<User>();
+// CSV operations
+var csvResult = CsvDataHelper.WriteToCsv(data, "output.csv");
+var readResult = CsvDataHelper.ReadFromCsv<MyModel>("input.csv");
 
-// Null/boş kontrol
-if (users.IsNotNullOrEmpty())
-{
-    // Sayfalama
-    var page1 = users.GetPage(1, 10);
-    var totalPages = users.GetTotalPages(10);
-    
-    // Property bazlı sıralama
-    var orderedByName = users.OrderByProperty("Name", true);
-    
-    // Property bazlı filtreleme
-    var filteredByAge = users.WherePropertyEquals("Age", 25);
-    
-    // Property bazlı gruplama
-    var groupedByCity = users.GroupByProperty("City");
-}
-```
+// Excel operations
+var excelResult = ExcelDataHelper.WriteToExcel(data, "output.xlsx");
+var excelReadResult = ExcelDataHelper.ReadFromExcel<MyModel>("input.xlsx");
 
-### Generic Utilities
-
-```csharp
-using WebLibrary.Utilities;
-
-var user = new User();
-
-// Property değeri alma
-var name = GenericUtilities.GetPropertyValue<string>(user, "Name");
-
-// Property değeri ayarlama
-GenericUtilities.SetPropertyValue(user, "Age", 25);
-
-// Dictionary'den nesne oluşturma
-var properties = new Dictionary<string, object?>
-{
-    { "Name", "John" },
-    { "Email", "john@example.com" }
-};
-var newUser = GenericUtilities.CreateFromDictionary<User>(properties);
-
-// Property kopyalama
-var copiedUser = GenericUtilities.CopyProperties<User>(user, "Name", "Email");
-```
-
-### Generic Service Base
-
-```csharp
-using WebLibrary.Services;
-
-public class UserService : GenericServiceBase<User>
-{
-    public override async Task<ServiceResult<List<User>>> GetAllAsync()
-    {
-        // Implementasyon
-        return ServiceResult<List<User>>.Success(users);
-    }
-    
-    public override async Task<ServiceResult<User>> GetByIdAsync(int id)
-    {
-        // Implementasyon
-        var user = users.FirstOrDefault(u => u.Id == id);
-        return user != null 
-            ? ServiceResult<User>.Success(user)
-            : ServiceResult<User>.Error("Kullanıcı bulunamadı");
-    }
-    
-    // Diğer metodların implementasyonu...
-}
+// Data transformation
+var jsonResult = DataTransformationHelper.ToJson(myObject);
+var dictResult = DataTransformationHelper.ToDictionary(myObject);
 ```
 
 ### Database Operations
-
 ```csharp
 using WebLibrary.Database;
 
-// Connection Factory
-var connectionFactory = new SqlServerConnectionFactory("your-connection-string");
+// Connection factory
+var connectionFactory = new SqlServerConnectionFactory(connectionString);
 
-// Query Builder
-var query = new QueryBuilder()
-    .Select("Id, Name, Email")
-    .From("Users")
-    .Where("Age > @Age", "Age", 18)
-    .OrderBy("Name", "ASC")
-    .Limit(10);
-
-var sql = query.Build();
-var parameters = query.GetParameters();
-
-// Generic Repository
-public class UserRepository : DapperGenericRepository<User, int>
+// Repository pattern
+public class UserRepository : DapperGenericRepository<User>
 {
     public UserRepository(IDbConnectionFactory connectionFactory) 
-        : base(connectionFactory, "Users", "Id")
-    {
-    }
+        : base(connectionFactory, "Users") { }
 }
 
-var userRepo = new UserRepository(connectionFactory);
-
-// CRUD işlemleri
-var users = await userRepo.GetAllAsync();
-var user = await userRepo.GetByIdAsync(1);
-var newUser = await userRepo.AddAsync(user);
-var updated = await userRepo.UpdateAsync(user);
-var deleted = await userRepo.DeleteAsync(1);
+// Query builder
+var query = new QueryBuilder()
+    .Select("Id", "Name", "Email")
+    .From("Users")
+    .Where("Age > @MinAge")
+    .OrderBy("Name")
+    .AddParameter("MinAge", 18)
+    .Build();
 
 // Unit of Work
 using var unitOfWork = new UnitOfWork(connectionFactory);
-var userRepo = unitOfWork.GetRepository<User, int>();
-
-try
-{
-    unitOfWork.BeginTransaction();
-    
-    // Birden fazla işlem
-    await userRepo.AddAsync(user1);
-    await userRepo.AddAsync(user2);
-    
-    unitOfWork.Commit();
-}
-catch
-{
-    unitOfWork.Rollback();
-    throw;
-}
-
-// Database Helper
-var isValid = DatabaseHelper.ValidateConnectionString(connectionString);
-var isConnected = DatabaseHelper.TestConnection(connectionString);
-var dbInfo = DatabaseHelper.GetDatabaseInfo(connectionString);
-var tables = DatabaseHelper.GetTables(connectionString);
-var columns = DatabaseHelper.GetTableStructure(connectionString, "Users");
-
-// Özel SQL sorgusu
-var results = DatabaseHelper.ExecuteQuery(connectionString, 
-    "SELECT * FROM Users WHERE Age > @Age", 
-    new Dictionary<string, object> { { "Age", 18 } });
-
-// Backup
-var backupResult = DatabaseHelper.CreateBackup(connectionString, @"C:\backup.bak");
+var userRepo = unitOfWork.GetRepository<User, UserRepository>();
+await unitOfWork.CommitAsync();
 ```
 
-## 🧪 Test
-
-Test projesini çalıştırmak için:
-
-```bash
-cd WebLibraryTest
-dotnet run
-```
-
-## 📋 Gereksinimler
+## Dependencies
 
 - .NET 9.0
-- Microsoft.AspNetCore.Http
-- Microsoft.Extensions.DependencyInjection
-- Microsoft.Extensions.Configuration
-- Microsoft.Extensions.Logging
+- BCrypt.Net-Next 4.0.3
+- CsvHelper 33.1.0
+- Dapper 2.1.66
+- EPPlus 8.1.0
+- Microsoft.Data.SqlClient 6.1.1
+- System.IdentityModel.Tokens.Jwt 8.14.0
 
-## 🔄 Güncellemeler
+## Contributing
 
-### v1.3.0
-- Database Operations eklendi
-  - Generic Repository Pattern (Dapper ile)
-  - Query Builder
-  - Connection Management
-  - Unit of Work Pattern
-  - Database Helper
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-### v1.2.0
-- Data Processing özellikleri eklendi
-  - CSV import/export
-  - Excel import/export
-  - Data Transformation
-  - Bulk Operations
+## License
 
-### v1.1.0
-- Security & Authentication özellikleri eklendi
-  - JWT Token Helper
-  - Password Helper (BCrypt)
-  - Encryption Helper
+This project is licensed under the MIT License.
 
-### v1.0.0
-- İlk sürüm
-- Generic ServiceResult sınıfı
-- HTTP Client Helper
-- Validation Helper
-- Generic Extensions
-- Generic Utilities
-- Generic Service Base
+## Updates
 
-## 📝 Lisans
+- **v1.0.0**: Initial release with core components
+- **v1.1.0**: Added Security & Authentication features
+- **v1.2.0**: Added Data Processing features
+- **v1.3.0**: Added Database Operations with Dapper integration
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+## Support
 
-## 🤝 Katkıda Bulunma
-
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/AmazingFeature`)
-3. Commit yapın (`git commit -m 'Add some AmazingFeature'`)
-4. Push yapın (`git push origin feature/AmazingFeature`)
-5. Pull Request oluşturun
-
-## 📞 İletişim
-
-Proje ile ilgili sorularınız için issue açabilirsiniz.
+For issues and questions, please open an issue on GitHub.
