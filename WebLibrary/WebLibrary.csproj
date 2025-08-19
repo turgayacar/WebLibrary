@@ -7,16 +7,17 @@
     
     <!-- NuGet Package Properties -->
     <PackageId>TurgayAcar.WebLibrary</PackageId>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <Authors>turgayacar</Authors>
     <Company>turgayacar</Company>
-    <Description>.NET 9 Web Development Library with Core, Security, Data Processing and Database Operations</Description>
+    <Description>.NET 9 Web Development Library with Core, Security, Data Processing, Database Operations, Logging &amp; Monitoring, File &amp; Media Processing, CAPTCHA &amp; Anti-Bot, and Testing &amp; Mocking Framework</Description>
     <Copyright>Copyright 2025</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/turgayacar/WebLibrary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/turgayacar/WebLibrary</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>dotnet;web;library;security;jwt;encryption;csv;excel;dapper;repository;database</PackageTags>
+    <PackageTags>dotnet;web;library;security;jwt;encryption;csv;excel;dapper;repository;database;logging;monitoring;captcha;testing;mocking;image-processing;file-compression</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
@@ -46,6 +47,10 @@
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="9.0.8" />
     <PackageReference Include="System.Text.Json" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>

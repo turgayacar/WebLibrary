@@ -31,6 +31,30 @@ A comprehensive .NET 9 Class Library that provides generic methods, utilities, a
 - **Unit of Work Pattern**: Transaction management
 - **Database Helper**: Utility operations for database management
 
+### 📝 Logging & Monitoring
+- **Structured Logging**: Serilog integration with console and file sinks
+- **Performance Monitoring**: Timer and statistics tracking
+- **Health Checks**: Database, API, and disk usage monitoring
+- **Metrics Collection**: Counters, gauges, and histograms
+
+### 📁 File & Media Processing
+- **Image Processing**: Resize, format conversion, rotation, cropping with SixLabors.ImageSharp
+- **File Compression**: ZIP compression and decompression
+- **Document Processing**: Text-based document operations
+- **Media Conversion**: Base64, Hex, encoding, JSON/XML transformations
+
+### 🤖 CAPTCHA & Anti-Bot
+- **Google reCAPTCHA**: v2/v3 integration
+- **Math CAPTCHA**: Customizable difficulty levels
+- **CAPTCHA Manager**: Unified management system
+- **Configurable Options**: Themes, languages, and expiration settings
+
+### 🧪 Testing & Mocking Framework
+- **Test Data Generation**: Bogus integration for fake data
+- **Mocking Support**: Moq integration for test doubles
+- **Assertion Helpers**: Custom assertion methods
+- **Test Base Classes**: Common setup/teardown, performance measurement, database testing
+
 ## Project Structure
 
 ```
@@ -65,6 +89,27 @@ WebLibrary/
     ├── IUnitOfWork.cs                  # Unit of work interface
     ├── UnitOfWork.cs                   # Unit of work implementation
     └── DatabaseHelper.cs               # Database utilities
+├── Logging/
+    ├── StructuredLoggingHelper.cs      # Serilog structured logging
+    ├── PerformanceMonitoringHelper.cs  # Performance tracking
+    ├── HealthCheckHelper.cs            # Health checks
+    └── MetricsCollectionHelper.cs      # Metrics collection
+├── FileMedia/
+    ├── ImageProcessingHelper.cs        # Image manipulation
+    ├── FileCompressionHelper.cs        # File compression
+    ├── DocumentProcessingHelper.cs     # Document operations
+    └── MediaConversionHelper.cs        # Media conversion
+├── Captcha/
+    ├── ICaptchaProvider.cs             # CAPTCHA provider interface
+    ├── GoogleRecaptchaProvider.cs      # Google reCAPTCHA
+    ├── MathCaptchaProvider.cs          # Math CAPTCHA
+    ├── CaptchaManager.cs               # CAPTCHA management
+    └── CaptchaModels.cs                # CAPTCHA models
+└── Testing/
+    ├── TestDataGenerator.cs            # Fake data generation
+    ├── MockHelper.cs                   # Mocking utilities
+    ├── AssertionHelper.cs              # Custom assertions
+    └── TestBase.cs                     # Test base classes
 
 WebLibraryTest/                         # Test console application
 └── Program.cs                          # Test implementation
@@ -153,6 +198,97 @@ var query = new QueryBuilder()
     .From("Users")
     .Where("Age > @MinAge")
     .OrderBy("Name")
+```
+
+### Logging & Monitoring
+```csharp
+using WebLibrary.Logging;
+
+// Structured logging
+StructuredLoggingHelper.ConfigureLogger(Serilog.Events.LogEventLevel.Information, "logs/app.log");
+StructuredLoggingHelper.LogInformation("User logged in: {UserId}", userId);
+
+// Performance monitoring
+PerformanceMonitoringHelper.StartTimer("api-call");
+var result = await apiService.CallAsync();
+PerformanceMonitoringHelper.StopTimer("api-call");
+
+// Health checks
+HealthCheckHelper.RecordHealthCheck("database", HealthStatus.Healthy, "Connection OK");
+var systemHealth = HealthCheckHelper.GetSystemHealthStatus();
+
+// Metrics collection
+MetricsCollectionHelper.IncrementCounter("api-requests", 1);
+MetricsCollectionHelper.SetGauge("active-users", 150);
+```
+
+### File & Media Processing
+```csharp
+using WebLibrary.FileMedia;
+
+// Image processing
+ImageProcessingHelper.ResizeImage("input.jpg", "output.jpg", 800, 600);
+ImageProcessingHelper.ConvertImageFormat("input.jpg", "output.png", ImageFormat.PNG);
+
+// File compression
+FileCompressionHelper.CompressDirectory("source-folder", "archive.zip");
+FileCompressionHelper.ExtractZip("archive.zip", "extract-folder");
+
+// Media conversion
+var base64 = MediaConversionHelper.ConvertFileToBase64("file.txt");
+var hex = MediaConversionHelper.ConvertFileToHex("file.txt");
+```
+
+### CAPTCHA & Anti-Bot
+```csharp
+using WebLibrary.Captcha;
+
+// Math CAPTCHA
+var mathCaptcha = new MathCaptchaProvider();
+var captchaResult = mathCaptcha.GenerateCaptcha(new CaptchaOptions
+{
+    Type = CaptchaType.MathCaptcha,
+    Difficulty = CaptchaDifficulty.Medium,
+    Language = "tr"
+});
+
+// Google reCAPTCHA
+var googleCaptcha = new GoogleRecaptchaProvider(new GoogleRecaptchaSettings
+{
+    SiteKey = "your-site-key",
+    SecretKey = "your-secret-key"
+});
+
+// CAPTCHA Manager
+var captchaManager = new CaptchaManager();
+var result = captchaManager.GenerateCaptcha(CaptchaType.MathCaptcha, options);
+```
+
+### Testing & Mocking Framework
+```csharp
+using WebLibrary.Testing;
+
+// Test data generation
+var users = TestDataGenerator.GenerateUsers(10);
+var products = TestDataGenerator.GenerateProducts(5);
+
+// Mocking
+var mockRepo = MockHelper.CreateRepositoryMock<User>(users);
+var mockLogger = MockHelper.CreateLoggerMock<MyService>();
+
+// Assertions
+AssertionHelper.IsNotNull(users);
+AssertionHelper.HasCount(users, 10);
+AssertionHelper.Contains(users, users.First());
+
+// Test base classes
+public class MyTestClass : TestBase
+{
+    protected override void SetupTestData()
+    {
+        // Test setup
+    }
+}
     .AddParameter("MinAge", 18)
     .Build();
 
@@ -190,6 +326,7 @@ This project is licensed under the MIT License.
 - **v1.1.0**: Added Security & Authentication features
 - **v1.2.0**: Added Data Processing features
 - **v1.3.0**: Added Database Operations with Dapper integration
+- **v1.4.0**: Added Logging & Monitoring, File & Media Processing, CAPTCHA & Anti-Bot, and Testing & Mocking Framework
 
 ## Support
 
