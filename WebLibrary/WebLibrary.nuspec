@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/nuspec.xsd">
+  <metadata>
+    <id>WebLibrary</id>
+    <version>1.0.0</version>
+    <title>WebLibrary</title>
+    <authors>Turgay ACAR</authors>
+    <owners>Turgay ACAR</owners>
+    <license type="MIT">https://opensource.org/licenses/MIT</license>
+    <projectUrl>https://github.com/yourusername/WebLibrary</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET 9.0 ile geliştirilmiş, generic method ve utility işlemleri içeren modern web kütüphanesi.</description>
+    <releaseNotes>İlk sürüm - Generic ServiceResult, HTTP Client Helper, Validation Helper, Generic Extensions, Generic Utilities ve Generic Service Base sınıfları eklendi.</releaseNotes>
+    <copyright>Copyright 2025</copyright>
+    <tags>web library generic utility validation http client service result extensions</tags>
+    <dependencies>
+      <group targetFramework="net9.0">
+        <dependency id="Microsoft.AspNetCore.Http" version="2.3.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="9.0.8" />
+        <dependency id="Microsoft.Extensions.Configuration" version="9.0.8" />
+        <dependency id="Microsoft.Extensions.Logging" version="9.0.8" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net9.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="bin\Release\net9.0\WebLibrary.dll" target="lib\net9.0\" />
+    <file src="bin\Release\net9.0\WebLibrary.pdb" target="lib\net9.0\" />
+    <file src="README.md" target="" />
+  </files>
+</package>
