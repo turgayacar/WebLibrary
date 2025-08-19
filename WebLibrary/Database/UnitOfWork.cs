@@ -103,8 +103,11 @@ namespace WebLibrary.Database
         /// <returns>Repository instance</returns>
         protected virtual IGenericRepository<T, TId> CreateRepository<T, TId>() where T : class
         {
-            // Bu method override edilebilir
-            throw new NotImplementedException($"Repository tipi {typeof(T).Name} için factory method implement edilmemiş");
+            // ESKİ KOD (YORUM SATIRINDA):
+            // throw new NotImplementedException($"Repository tipi {typeof(T).Name} için factory method implement edilmemiş");
+            
+            // YENİ KOD: Repository Factory kullanarak repository oluştur
+            return RepositoryFactory.CreateRepository<T, TId>(_connectionFactory);
         }
 
         public void Dispose()

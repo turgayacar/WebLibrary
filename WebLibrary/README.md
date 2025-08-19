@@ -331,3 +331,94 @@ This project is licensed under the MIT License.
 ## Support
 
 For issues and questions, please open an issue on GitHub.
+
+## Veritabanı Kullanımı
+
+### Program.cs'de Servisleri Kaydetme
+
+```csharp
+using WebLibrary.Database;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// WebLibrary Database Services
+builder.Services.AddScoped<IDbConnectionFactory>(provider => 
+    new SqlServerConnectionFactory(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddEndpointsApiExplorer();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
+```
+
+### appsettings.json
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=TestDB;Trusted_Connection=true;TrustServerCertificate=true;"
+  }
+}
+```
+
+### Controller'da Kullanım
+
+```csharp
+[ApiController]
+[Route("api/[controller]")]
+public class UsersController : ControllerBase
+{
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UsersController(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var repository = _unitOfWork.GetRepository<User, int>();
+        var result = await repository.GetAllAsync();
+        
+        if (result.IsSuccess)
+            return Ok(result.Data);
+        
+        return BadRequest(result.ErrorMessages);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] User user)
+    {
+        var repository = _unitOfWork.GetRepository<User, int>();
+        var result = await repository.AddAsync(user);
+        
+        if (result.IsSuccess)
+            return CreatedAtAction(nameof(GetAll), result.Data);
+        
+        return BadRequest(result.ErrorMessages);
+    }
+}
+```
+
+### Veritabanı Tablosu Oluşturma
+
+```sql
+CREATE TABLE Users (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Description NVARCHAR(500) NULL,
+    CreatedDate DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    UpdatedDate DATETIME2 NULL,
+    IsActive BIT NOT NULL DEFAULT 1
+)
+```
